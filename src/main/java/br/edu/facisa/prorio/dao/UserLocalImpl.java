@@ -72,9 +72,9 @@ public class UserLocalImpl implements UserDAO {
 
 	private static List<User> populateDummyUsers() {
 		List<User> users = new ArrayList<User>();
-		users.add(new User(counter.incrementAndGet(), "maoliveira", "Campina Grande", "maoliveira@stefnini.com"));
-		users.add(new User(counter.incrementAndGet(), "escantalice", "Santos", "escantalice@stefanini.com"));
-		users.add(new User(counter.incrementAndGet(), "ebrito", "Rondonia", "ebrito@stefanini.com"));
+		users.add(new User(counter.incrementAndGet(), "maoliveira", "Campina Grande", "maoliveira@gmail.com"));
+		users.add(new User(counter.incrementAndGet(), "escantalice", "Santos", "escantalice@gmail.com"));
+		users.add(new User(counter.incrementAndGet(), "ebrito", "Rondonia", "ebrito@gmail.com"));
 		return users;
 	}
 
