@@ -1,4 +1,4 @@
-package br.edu.facisa.prorio.dao;
+package br.edu.facisa.prorio.configuration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

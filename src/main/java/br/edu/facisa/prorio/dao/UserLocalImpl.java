@@ -1,15 +1,21 @@
 package br.edu.facisa.prorio.dao;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import br.edu.facisa.prorio.model.User;
+import br.edu.facisa.prorio.model.UserProfile;
+import br.edu.facisa.prorio.model.UserProfileType;
 
-@Service("userService")
+@Component
+@Service("userDAO")
 public class UserLocalImpl implements UserDAO {
 
 	private static final AtomicLong counter = new AtomicLong();
@@ -71,10 +77,15 @@ public class UserLocalImpl implements UserDAO {
 	}
 
 	private static List<User> populateDummyUsers() {
+		Set<UserProfile> userProfiles = new HashSet<UserProfile>();
+		UserProfile profile = new UserProfile(counter.incrementAndGet(), UserProfileType.ADMIN.getUserProfileType());
+		userProfiles.add(profile);
 		List<User> users = new ArrayList<User>();
-		users.add(new User(counter.incrementAndGet(), "maoliveira", "Campina Grande", "maoliveira@stefnini.com"));
-		users.add(new User(counter.incrementAndGet(), "escantalice", "Santos", "escantalice@stefanini.com"));
-		users.add(new User(counter.incrementAndGet(), "ebrito", "Rondonia", "ebrito@stefanini.com"));
+		
+		users.add(new User(counter.incrementAndGet(), "maoliveira", "12345", "Campina Grande",
+				"maoliveira@gmail.com"));
+		users.add(new User(counter.incrementAndGet(), "escantalice", "12345", "Santos", "escantalice@gmail.com", userProfiles));
+		users.add(new User(counter.incrementAndGet(), "ebrito", "12345", "Rondonia", "ebrito@gmail.com"));
 		return users;
 	}
 

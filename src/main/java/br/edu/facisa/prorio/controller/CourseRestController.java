@@ -35,9 +35,9 @@ public class CourseRestController {
     
   //-------------------Retrieve all disciplines of course--------------------------------------------------------
     
-    @RequestMapping(value = "/course/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/course/disciplines/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Discipline>> getCursosDisciplinas(@PathVariable("id") long id) {
-        System.out.println("Fetching disciplines with id of course " + id);
+        System.out.println("Fetching disciplines of course " + id);
         List<Discipline> disciplines = courseService.findDisciplinesOfCouseById(id);
         if (disciplines.size() == 0) {
             return new ResponseEntity<List<Discipline>>(HttpStatus.NOT_FOUND);

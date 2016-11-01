@@ -1,28 +1,59 @@
 package br.edu.facisa.prorio.model;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
+
 public class User {
 
 	private long id;
-	
+
 	private String username;
-	
+
+	private String password;
+
 	private String address;
-	
+
 	private String email;
 	
-	public User(){
-		id=0;
+	private static final AtomicLong counter = new AtomicLong();
+
+	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
+
+	public User() {
+		id = 0;
 	}
-	
-	public User(long id, String username, String address, String email){
+
+	public User(long id, String username, String password, String address, String email) {
 		this.id = id;
 		this.username = username;
 		this.address = address;
 		this.email = email;
+		this.userProfiles.add(new UserProfile(counter.incrementAndGet()));
+	}
+	
+	
+
+	public User(long id, String username, String password, String address, String email,
+			Set<UserProfile> userProfiles) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.address = address;
+		this.email = email;
+		this.userProfiles = userProfiles;
 	}
 
 	public long getId() {
 		return id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public void setId(long id) {
@@ -43,6 +74,14 @@ public class User {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public Set<UserProfile> getUserProfiles() {
+		return userProfiles;
+	}
+
+	public void setUserProfiles(Set<UserProfile> userProfiles) {
+		this.userProfiles = userProfiles;
 	}
 
 	public String getEmail() {
@@ -77,10 +116,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", address=" + address
-				+ ", email=" + email + "]";
+		return "User [id=" + id + ", username=" + username + ", address=" + address + ", email=" + email + "]";
 	}
-	
 
-	
 }
