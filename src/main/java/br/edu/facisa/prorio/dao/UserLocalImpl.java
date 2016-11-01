@@ -81,17 +81,14 @@ public class UserLocalImpl implements UserDAO {
 		UserProfile profile = new UserProfile(counter.incrementAndGet(), UserProfileType.ADMIN.getUserProfileType());
 		userProfiles.add(profile);
 		List<User> users = new ArrayList<User>();
-<<<<<<< HEAD
 		
 		users.add(new User(counter.incrementAndGet(), "maoliveira", "12345", "Campina Grande",
 				"maoliveira@gmail.com"));
 		users.add(new User(counter.incrementAndGet(), "escantalice", "12345", "Santos", "escantalice@gmail.com", userProfiles));
 		users.add(new User(counter.incrementAndGet(), "ebrito", "12345", "Rondonia", "ebrito@gmail.com"));
-=======
 		users.add(new User(counter.incrementAndGet(), "maoliveira", "Campina Grande", "maoliveira@gmail.com"));
 		users.add(new User(counter.incrementAndGet(), "escantalice", "Santos", "escantalice@gmail.com"));
 		users.add(new User(counter.incrementAndGet(), "ebrito", "Rondonia", "ebrito@gmail.com"));
->>>>>>> 3d16f5dbe264aa5125e7c454e00d6f55913efab2
 		return users;
 	}
 
