@@ -1,5 +1,6 @@
 package br.edu.facisa.prorio.controller;
  
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,13 @@ public class CourseRestController {
      
     @RequestMapping(value = "/course/", method = RequestMethod.GET)
     public ResponseEntity<List<Course>> listAll() {
-        List<Course> courses = courseService.findAll();
-        if(courses.isEmpty()){
+        List<Course> courses = null;
+		try {
+			courses = courseService.findAll();
+		} catch (SQLException e) {
+			return new ResponseEntity<List<Course>>(HttpStatus.BAD_REQUEST);
+		}
+        if(courses == null || courses.isEmpty()){
             return new ResponseEntity<List<Course>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
@@ -38,7 +44,12 @@ public class CourseRestController {
     @RequestMapping(value = "/course/disciplines/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Discipline>> getCursosDisciplinas(@PathVariable("id") long id) {
         System.out.println("Fetching disciplines of course " + id);
-        List<Discipline> disciplines = courseService.findDisciplinesOfCouseById(id);
+        List<Discipline> disciplines;
+		try {
+			disciplines = courseService.findDisciplinesOfCouseById(id);
+		} catch (SQLException e) {
+			return new ResponseEntity<List<Discipline>>(HttpStatus.BAD_REQUEST);
+		}
         if (disciplines.size() == 0) {
             return new ResponseEntity<List<Discipline>>(HttpStatus.NOT_FOUND);
         }

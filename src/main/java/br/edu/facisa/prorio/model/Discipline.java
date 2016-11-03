@@ -6,7 +6,11 @@ public class Discipline {
 
 	private String nome;
 
+	private int period;
+
 	private int credits;
+
+	private long idCourse;
 
 	public Discipline() {
 		id = 0;
@@ -41,6 +45,22 @@ public class Discipline {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public int getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(int period) {
+		this.period = period;
+	}
+
+	public long getIdCourse() {
+		return idCourse;
+	}
+
+	public void setIdCourse(long idCourse) {
+		this.idCourse = idCourse;
 	}
 
 	@Override

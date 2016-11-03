@@ -23,14 +23,12 @@ public class User {
 		this.email = email;
 	}
 
-	public User(String username, String password, String address, String email,
-			Set<UserProfile> userProfiles) {
+	public User(String username, String password, String address, String email, Set<UserProfile> userProfiles) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.userProfiles = userProfiles;
 	}
-
 
 	public String getPassword() {
 		return password;
@@ -39,7 +37,6 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 	public String getUsername() {
 		return username;
@@ -73,15 +70,10 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + enabled;
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((userProfiles == null) ? 0 : userProfiles.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -95,23 +87,6 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (enabled != other.enabled)
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (userProfiles == null) {
-			if (other.userProfiles != null)
-				return false;
-		} else if (!userProfiles.equals(other.userProfiles))
-			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;

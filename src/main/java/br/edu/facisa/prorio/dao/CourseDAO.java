@@ -1,5 +1,6 @@
 package br.edu.facisa.prorio.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import br.edu.facisa.prorio.model.Course;
@@ -7,22 +8,22 @@ import br.edu.facisa.prorio.model.Discipline;
 
 public interface CourseDAO {
 	
-	Course findById(long id);
+	Course findById(long id) throws SQLException;
 	
-	List<Discipline> findDisciplinesOfCouseById(long id);
+	List<Discipline> findDisciplinesOfCouseById(long id) throws SQLException;
 	
-	Course findByName(String name);
+	Course findByName(String name) throws SQLException;
 	
-	void save(Course course);
+	void save(Course course) throws SQLException;
 	
 	void update(Course course);
 	
-	void deleteById(long id);
+	void deleteById(long id) throws SQLException;
 
-	List<Course> findAll(); 
+	List<Course> findAll() throws SQLException; 
 	
-	void deleteAll();
+	void deleteAll() throws SQLException;
 	
-	public boolean isExist(Course course);
+	public boolean isExist(Course course) throws SQLException;
 	
 }

@@ -6,7 +6,7 @@ public class Course {
 
 	private long id;
 
-	private String nome;
+	private String name;
 
 	private List<Discipline> disciplines;
 
@@ -15,12 +15,12 @@ public class Course {
 
 	public Course(long id, String nome) {
 		this.id = id;
-		this.nome = nome;
+		this.name = nome;
 	}
 
 	public Course(long id, String nome, List<Discipline> disciplines) {
 		this.id = id;
-		this.nome = nome;
+		this.name = nome;
 		this.disciplines = disciplines;
 	}
 
@@ -29,7 +29,7 @@ public class Course {
 	}
 
 	public String getNome() {
-		return nome;
+		return name;
 	}
 
 	public void setId(long id) {
@@ -37,7 +37,7 @@ public class Course {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.name = nome;
 	}
 
 	public List<Discipline> getDisciplines() {
@@ -64,7 +64,7 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", nome=" + nome + "]";
+		return "Course [id=" + id + ", nome=" + name + "]";
 	}
 
 }
