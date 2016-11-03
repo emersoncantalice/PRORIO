@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import br.edu.facisa.prorio.model.Course;
 import br.edu.facisa.prorio.model.Discipline;
 
-
 @Service("courseService")
 public class CourseLocalImpl implements CourseDAO {
 
@@ -86,22 +85,21 @@ public class CourseLocalImpl implements CourseDAO {
 		disciplinesOfArq.add(diciplines.get(2));
 		disciplinesOfArq.add(diciplines.get(3));
 		disciplinesOfArq.add(diciplines.get(2));
-		
-		
+
 		course.add(new Course(counter.incrementAndGet(), "Sistemas de Informação", disciplinesOfSI));
 		course.add(new Course(counter.incrementAndGet(), "Medicina", disciplinesOfMed));
 		course.add(new Course(counter.incrementAndGet(), "Arquitetura", disciplinesOfArq));
 		return course;
 	}
-	
+
 	private static List<Discipline> populateDisciplines() {
 		List<Discipline> dis = new ArrayList<Discipline>();
-		dis.add(new Discipline(counter.incrementAndGet(), "P1"));
-		dis.add(new Discipline(counter.incrementAndGet(), "P2"));
-		dis.add(new Discipline(counter.incrementAndGet(), "Geometria Discritiva"));
-		dis.add(new Discipline(counter.incrementAndGet(), "Desenho Basico"));
-		dis.add(new Discipline(counter.incrementAndGet(), "Cardologia"));
-		dis.add(new Discipline(counter.incrementAndGet(), "Biologia"));
+		dis.add(new Discipline(counter.incrementAndGet(), "P1", 1));
+		dis.add(new Discipline(counter.incrementAndGet(), "P2", 3));
+		dis.add(new Discipline(counter.incrementAndGet(), "Geometria Discritiva", 5));
+		dis.add(new Discipline(counter.incrementAndGet(), "Desenho Basico", 7));
+		dis.add(new Discipline(counter.incrementAndGet(), "Cardologia", 8));
+		dis.add(new Discipline(counter.incrementAndGet(), "Biologia", 6));
 		return dis;
 	}
 
@@ -109,7 +107,7 @@ public class CourseLocalImpl implements CourseDAO {
 	public List<Discipline> findDisciplinesOfCouseById(long id) {
 		List<Discipline> disciplines = new ArrayList<Discipline>();
 		for (Course curso : courses) {
-			if(curso.getId() == id) {
+			if (curso.getId() == id) {
 				disciplines = curso.getDisciplines();
 			}
 		}

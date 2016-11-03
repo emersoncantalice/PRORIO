@@ -1,5 +1,6 @@
 package br.edu.facisa.prorio.configuration;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,13 +23,18 @@ import br.edu.facisa.prorio.model.UserProfile;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
-
+	
 	@Autowired
 	private UserDAO userDAO;
 
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String ssoId) throws UsernameNotFoundException {
-		User user = userDAO.findByName(ssoId);
+		User user = null;
+		try {
+			user = userDAO.findByName(ssoId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		logger.info("User : {}", user);
 		if (user == null) {
 			logger.info("User not found");
@@ -43,7 +49,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		for (UserProfile userProfile : user.getUserProfiles()) {
 			logger.info("UserProfile : {}", userProfile);
-			authorities.add(new SimpleGrantedAuthority("ROLE_" + userProfile.getType()));
+			authorities.add(new SimpleGrantedAuthority(userProfile.getType()));
 		}
 		logger.info("authorities : {}", authorities);
 		return authorities;

@@ -6,14 +6,25 @@ public class Discipline {
 
 	private String nome;
 
+	private int credits;
+
 	public Discipline() {
 		id = 0;
 	}
 
-	public Discipline(long id, String nome) {
+	public Discipline(long id, String nome, int credits) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.credits = credits;
+	}
+
+	public int getCredits() {
+		return credits;
+	}
+
+	public void setCredits(int credits) {
+		this.credits = credits;
 	}
 
 	public long getId() {

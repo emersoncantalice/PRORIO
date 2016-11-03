@@ -1,9 +1,12 @@
 package br.edu.facisa.prorio.configuration;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -25,8 +28,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	@Qualifier("customUserDetailsService")
 	UserDetailsService userDetailsService;
-	
+
 	PersistentTokenRepository tokenRepository = new InMemoryTokenRepositoryImpl();
+
+	@Autowired
+	DataSource dataSource;
 
 	@Autowired
 	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
@@ -36,13 +42,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/list")
-				.access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
-				.antMatchers("/newuser/**", "/delete-user-*").access("hasRole('ADMIN')").antMatchers("/edit-user-*")
-				.access("hasRole('ADMIN') or hasRole('DBA')").and().formLogin().loginPage("/login")
-				.loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password").and()
-				.rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository)
-				.tokenValiditySeconds(86400).and().csrf().and().exceptionHandling().accessDeniedPage("/Access_Denied");
+
+		http.authorizeRequests().antMatchers("/", "/user/**").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+				.antMatchers("/course/**").access("hasRole('ROLE_DBA')").antMatchers("/static/**").permitAll().and()
+				.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/path/to/allow").permitAll()
+				.anyRequest().authenticated().and().formLogin().loginPage("/login").loginProcessingUrl("/login")
+				.permitAll().usernameParameter("username").passwordParameter("password").and().rememberMe()
+				.rememberMeParameter("remember-me").tokenRepository(tokenRepository).tokenValiditySeconds(86400).and()
+				.httpBasic().and().exceptionHandling().accessDeniedPage("/Access_Denied");
 	}
 
 	@Bean

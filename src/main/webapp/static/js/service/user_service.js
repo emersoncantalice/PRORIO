@@ -59,9 +59,9 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
         return deferred.promise;
     }
 
-    function deleteUser(id) {
+    function deleteUser(username) {
         var deferred = $q.defer();
-        $http.delete(REST_SERVICE_URI+id)
+        $http.delete(REST_SERVICE_URI+username)
             .then(
             function (response) {
                 deferred.resolve(response.data);

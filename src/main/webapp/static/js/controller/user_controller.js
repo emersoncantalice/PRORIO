@@ -45,8 +45,8 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
         );
     }
 
-    function deleteUser(id){
-        UserService.deleteUser(id)
+    function deleteUser(user){
+        UserService.deleteUser(user)
             .then(
             fetchAllUsers,
             function(errResponse){
@@ -76,12 +76,12 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
         }
     }
 
-    function remove(id){
-        console.log('id to be deleted', id);
-        if(self.user.id === id) {//clean form if the user to be deleted is shown there.
+    function remove(username){
+        console.log('id to be deleted', username);
+        if(self.user.username === username) {//clean form if the user to be deleted is shown there.
             reset();
         }
-        deleteUser(id);
+        deleteUser(username);
     }
 
 

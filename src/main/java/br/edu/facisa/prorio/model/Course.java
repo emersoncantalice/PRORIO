@@ -11,14 +11,13 @@ public class Course {
 	private List<Discipline> disciplines;
 
 	public Course() {
-		id = 0;
 	}
 
 	public Course(long id, String nome) {
 		this.id = id;
 		this.nome = nome;
 	}
-	
+
 	public Course(long id, String nome, List<Discipline> disciplines) {
 		this.id = id;
 		this.nome = nome;

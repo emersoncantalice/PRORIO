@@ -1,25 +1,24 @@
 package br.edu.facisa.prorio.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import br.edu.facisa.prorio.model.User;
 
 public interface UserDAO {
 
-	User findById(long id);
+	User findByName(String name) throws SQLException;
 
-	User findByName(String name);
-
-	void saveUser(User user);
+	void saveUser(User user) throws SQLException;
 
 	void updateUser(User user);
 
-	void deleteUserById(long id);
+	void deleteUserByUsername(String username) throws SQLException;
 
-	List<User> findAllUsers();
+	List<User> findAllUsers() throws SQLException;
 
-	void deleteAllUsers();
+	void deleteAllUsers() throws SQLException;
 
-	public boolean isUserExist(User user);
+	public boolean isUserExist(String username) throws SQLException;
 
 }

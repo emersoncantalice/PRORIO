@@ -2,51 +2,35 @@ package br.edu.facisa.prorio.model;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class User {
-
-	private long id;
 
 	private String username;
 
 	private String password;
 
-	private String address;
+	private int enabled;
 
 	private String email;
-	
-	private static final AtomicLong counter = new AtomicLong();
 
 	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
 	public User() {
-		id = 0;
 	}
 
-	public User(long id, String username, String password, String address, String email) {
-		this.id = id;
+	public User(String username, String password, String address, String email) {
 		this.username = username;
-		this.address = address;
 		this.email = email;
-		this.userProfiles.add(new UserProfile(counter.incrementAndGet()));
 	}
-	
-	
 
-	public User(long id, String username, String password, String address, String email,
+	public User(String username, String password, String address, String email,
 			Set<UserProfile> userProfiles) {
-		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.address = address;
 		this.email = email;
 		this.userProfiles = userProfiles;
 	}
 
-	public long getId() {
-		return id;
-	}
 
 	public String getPassword() {
 		return password;
@@ -56,9 +40,6 @@ public class User {
 		this.password = password;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getUsername() {
 		return username;
@@ -66,14 +47,6 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public Set<UserProfile> getUserProfiles() {
@@ -92,11 +65,24 @@ public class User {
 		this.email = email;
 	}
 
+	public int getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
+
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + enabled;
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((userProfiles == null) ? 0 : userProfiles.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -106,17 +92,37 @@ public class User {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof User))
+		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (id != other.id)
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (enabled != other.enabled)
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (userProfiles == null) {
+			if (other.userProfiles != null)
+				return false;
+		} else if (!userProfiles.equals(other.userProfiles))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", address=" + address + ", email=" + email + "]";
+		return "User [username=" + username + ", email=" + email + "]";
 	}
 
 }
