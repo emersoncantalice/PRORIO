@@ -16,14 +16,14 @@ CREATE TABLE officials(
   id_people int,
   record_number varchar(13) NOT NULL,
   CONSTRAINT pk_employee PRIMARY KEY (id_employee),
-  CONSTRAINT fk_employee_people FOREIGN KEY (id_people) REFERENCES people (id_people)
+  CONSTRAINT fk_employee_people FOREIGN KEY (id_people) REFERENCES people (id_people) ON DELETE CASCADE
 );
 
 
 CREATE TABLE functions(
 	id_employee int,
 	function function_user, 
-	CONSTRAINT fk_employee FOREIGN KEY (id_employee) REFERENCES officials (id_employee)
+	CONSTRAINT fk_employee FOREIGN KEY (id_employee) REFERENCES officials (id_employee) ON DELETE CASCADE
 );
 
 
@@ -35,7 +35,7 @@ CREATE TABLE availability(
 	schedule_four mode NOT NULL,
 	schedule_five mode NOT NULL,
 	schedule_six mode NOT NULL,
-	CONSTRAINT fk_employee FOREIGN KEY (id_employee) REFERENCES officials (id_employee)
+	CONSTRAINT fk_employee FOREIGN KEY (id_employee) REFERENCES officials (id_employee) ON DELETE CASCADE
 );
 
 
@@ -46,7 +46,7 @@ CREATE TABLE users (
   enabled int NOT NULL DEFAULT 1,
   email varchar(60) NOT NULL UNIQUE,
   CONSTRAINT pk_username PRIMARY KEY (username),
-  CONSTRAINT fk_user_employee FOREIGN KEY (id_employee) REFERENCES officials (id_employee)
+  CONSTRAINT fk_user_employee FOREIGN KEY (id_employee) REFERENCES officials (id_employee) ON DELETE CASCADE
 );
 
 
@@ -55,7 +55,7 @@ CREATE TABLE user_profile (
   username varchar(45) NOT NULL,
   role varchar(45) NOT NULL,
   PRIMARY KEY (id_profile),
-  CONSTRAINT fk_user FOREIGN KEY (username) REFERENCES users(username)
+  CONSTRAINT fk_user FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
 );
 
 
@@ -73,7 +73,7 @@ CREATE TABLE disciplines (
   period int NOT NULL,
   credits int NOT NULL,
   PRIMARY KEY (id_discipline),
-  CONSTRAINT fk_user FOREIGN KEY (id_course) REFERENCES courses(id_course)
+  CONSTRAINT fk_user FOREIGN KEY (id_course) REFERENCES courses(id_course) ON DELETE CASCADE
 );
 
 
@@ -82,8 +82,8 @@ CREATE TABLE employee_courses(
 	id_employee int,
 	id_course int,
 	CONSTRAINT pk_employee_course PRIMARY KEY (id_employee_course),
-	CONSTRAINT fk_employee_ref FOREIGN KEY (id_employee) REFERENCES officials (id_employee),
-	CONSTRAINT fk_course FOREIGN KEY (id_course) REFERENCES courses (id_course)
+	CONSTRAINT fk_employee_ref FOREIGN KEY (id_employee) REFERENCES officials (id_employee) ON DELETE CASCADE,
+	CONSTRAINT fk_course FOREIGN KEY (id_course) REFERENCES courses (id_course) ON DELETE CASCADE
 );
 
 
@@ -92,7 +92,7 @@ CREATE TABLE students(
 	id_people int,
 	registration varchar(13)not null,
 	CONSTRAINT pk_student PRIMARY KEY (id_student),
-	CONSTRAINT fk_student FOREIGN KEY (id_student) REFERENCES people (id_people)
+	CONSTRAINT fk_student FOREIGN KEY (id_student) REFERENCES people (id_people) ON DELETE CASCADE
 );
 
 
@@ -102,15 +102,19 @@ CREATE TABLE students_courses(
 	id_student int not null,
 	id_course int not null,
 	CONSTRAINT pk_student_course PRIMARY KEY (id_student_course),
-	CONSTRAINT fk_student FOREIGN KEY (id_student) REFERENCES students (id_student),
-	CONSTRAINT fk_course FOREIGN KEY (id_course) REFERENCES courses (id_course)
+	CONSTRAINT fk_student FOREIGN KEY (id_student) REFERENCES students (id_student) ON DELETE CASCADE,
+	CONSTRAINT fk_course FOREIGN KEY (id_course) REFERENCES courses (id_course) ON DELETE CASCADE
 );
 
 
 INSERT INTO people(name,birth_date,cpf) VALUES  ('Emerson','12-12-1991','123456'),
 												('Junior','12-12-1991', '132456'),
 												('Matheus','12-12-1991', '13245'),
-												('Amanda','12-12-1991', '132572'); 
+												('Amanda','12-12-1991', '132572'),
+												('Fernanda','12-12-1991', '132456'),
+												('Leydson','12-12-1991', '13245'),
+												('Germano','12-12-1991', '13245'),
+												('Alberto','12-12-1991', '132572'); 
 
 INSERT INTO officials(id_people,record_number) VALUES (1,'123456'),(2,'123457'), (3,'123458'), (4,'123958');
 
@@ -143,15 +147,17 @@ INSERT INTO disciplines(id_course, name, period, credits) VALUES (1, 'Programaç
 
 INSERT INTO employee_courses(id_employee,id_course) VALUES (1,1),(2,2),(3,3),(4,1);
 
-INSERT INTO students(id_people, registration) VALUES (1,'1423080002'),
-													 (2,'1423080003'),
-													 (3,'1423080004'),
-													 (4,'1423080005');
+INSERT INTO students(id_people, registration) VALUES (5,'1423080002'),
+													 (6,'1423080003'),
+													 (7,'1423080004'),
+													 (8,'1423080005');
 
-INSERT into students_courses(id_student,id_course) values (1,1),(2,2),(3,3);
+INSERT into students_courses(id_student,id_course) values (1,1),(2,2),(3,3),(4,3);
 
 
 select people.name,courses.name, students.id_student from people, students, students_courses, courses where students.id_student = students_courses.id_student and
 										courses.id_course = students_courses.id_course and
 										people.id_people = students.id_student and
 										students_courses.id_student = 2;
+
+
