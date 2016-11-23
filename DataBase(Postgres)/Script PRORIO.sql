@@ -28,16 +28,29 @@ CREATE TABLE functions(
 
 
 CREATE TABLE availability(
+	id_availability serial,
 	id_employee int UNIQUE,
+	Day_of_the_week varchar(15) not null,
 	schedule_one mode NOT NULL,
 	schedule_two mode NOT NULL,
 	schedule_three mode NOT NULL,
 	schedule_four mode NOT NULL,
 	schedule_five mode NOT NULL,
 	schedule_six mode NOT NULL,
+	CONSTRAINT pk_availability PRIMARY KEY (id_availability),
 	CONSTRAINT fk_employee FOREIGN KEY (id_employee) REFERENCES officials (id_employee) ON DELETE CASCADE
 );
 
+CREATE TABLE priorities(
+	id_availability int UNIQUE,
+	schedule_one VARCHAR(50),
+	schedule_two VARCHAR(50),
+	schedule_three VARCHAR(50),
+	schedule_four VARCHAR(50),
+	schedule_five VARCHAR(50),
+	schedule_six VARCHAR(50),
+	CONSTRAINT fk_priorities_availability FOREIGN KEY (id_availability) REFERENCES availability (id_availability) ON DELETE CASCADE
+);
 
 CREATE TABLE users (
   id_employee int,
@@ -120,9 +133,13 @@ INSERT INTO officials(id_people,record_number) VALUES (1,'123456'),(2,'123457'),
 
 INSERT into functions(id_employee,function) values (1,'coordinator'), (2,'teacher'), (3,'teacher'), (4,'teacher');
 
-INSERT INTO availability(id_employee,schedule_one, schedule_two, schedule_three, schedule_four,schedule_five,schedule_six)
-	   VALUES(1,'0','1','0','1','0','1'),(2,'1','1','1','1','0','1'),(3,'1','1','0','0','0','1')
-	   		  ,(4,'0','0','1','1','0','1');
+INSERT INTO availability(id_employee,Day_of_the_week ,schedule_one, schedule_two, schedule_three, schedule_four,schedule_five,schedule_six)
+	   VALUES(1,'segunda','0','1','0','1','0','1'),(2,'terça','1','1','1','1','0','1'),(3,'segunda','1','1','0','0','0','1')
+	   		  ,(4,'quinta','0','0','1','1','0','1');
+
+INSERT INTO priorities(id_availability,schedule_one, schedule_two, schedule_three, schedule_four,schedule_five,schedule_six)
+	   VALUES(1,'Programação 1',null ,null ,'Programação 2',null ,null ),(2,null ,'Programação 1',null ,null ,null ,null ),
+	   (3,null ,null ,null ,null ,null ,null ) ,(4,null ,null ,null ,'Programação 12',null ,null );
 
 INSERT INTO users(id_employee,username, password, enabled, email) VALUES (1,'escantalice', '123', 1, 'emersoncantalicee@gmail.com'),
                                                     (2,'maoliveira', '123', 1, 'matheusoliveira@gmail.com'),
