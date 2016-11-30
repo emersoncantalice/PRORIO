@@ -134,12 +134,12 @@ INSERT INTO officials(id_people,record_number) VALUES (1,'123456'),(2,'123457'),
 INSERT into functions(id_employee,function) values (1,'coordinator'), (2,'teacher'), (3,'teacher'), (4,'teacher');
 
 INSERT INTO availability(id_employee,Day_of_the_week ,schedule_one, schedule_two, schedule_three, schedule_four,schedule_five,schedule_six)
-	   VALUES(1,'segunda','0','1','0','1','0','1'),(2,'terÃ§a','1','1','1','1','0','1'),(3,'segunda','1','1','0','0','0','1')
+	   VALUES(1,'segunda','0','1','0','1','0','1'),(2,'terça','1','1','1','1','0','1'),(3,'segunda','1','1','0','0','0','1')
 	   		  ,(4,'quinta','0','0','1','1','0','1');
 
 INSERT INTO priorities(id_availability,schedule_one, schedule_two, schedule_three, schedule_four,schedule_five,schedule_six)
-	   VALUES(1,'ProgramaÃ§Ã£o 1',null ,null ,'ProgramaÃ§Ã£o 2',null ,null ),(2,null ,'ProgramaÃ§Ã£o 1',null ,null ,null ,null ),
-	   (3,null ,null ,null ,null ,null ,null ) ,(4,null ,null ,null ,'ProgramaÃ§Ã£o 12',null ,null );
+	   VALUES(1,'Programação 1',null ,null ,'Programação 2',null ,null ),(2,null ,'Programação 1',null ,null ,null ,null ),
+	   (3,null ,null ,null ,null ,null ,null ) ,(4,null ,null ,null ,'Programação 12',null ,null );
 
 INSERT INTO users(id_employee,username, password, enabled, email) VALUES (1,'escantalice', '123', 1, 'emersoncantalicee@gmail.com'),
                                                     (2,'maoliveira', '123', 1, 'matheusoliveira@gmail.com'),
@@ -150,16 +150,16 @@ INSERT INTO user_profile(username,role) VALUES ('escantalice', 'ROLE_ADMIN'),
                                               ('ebrito', 'ROLE_USER'),
                                               ('escantalice', 'ROLE_USER');
 
-INSERT INTO courses(id_course, name) VALUES (1,'Sistemas de InformaÃ§Ã£o'),(2,'AdministraÃ§Ã£o'),(3,'Medicina');
+INSERT INTO courses(id_course, name) VALUES (1,'Sistemas de Informação'),(2,'Administração'),(3,'Medicina');
 
-INSERT INTO disciplines(id_course, name, period, credits) VALUES (1, 'ProgramaÃ§Ã£o 1', 1, 2),
-																 (1, 'ProgramaÃ§Ã£o 2', 2, 2),
-																 (1, 'Praticas de ProgramaÃ§Ã£o', 3, 2),
-                                                                 (2, 'AdminstraÃ§Ã£o BÃ¡sica', 1, 1), 
-                                                                 (2, 'Teoria da AdminstraÃ§Ã£o', 1, 2), 
+INSERT INTO disciplines(id_course, name, period, credits) VALUES (1, 'Programação 1', 1, 2),
+								 (1, 'Programação 2', 2, 2),
+								 (1, 'Praticas de Programação', 3, 2),
+                                                                 (2, 'Adminstração Básica', 1, 1), 
+                                                                 (2, 'Teoria da Adminstração', 1, 2), 
                                                                  (2, 'Analise de recursos', 2, 1),
                                                                  (3, 'Fisiologia', 1, 2),
-                                                                 (3, 'DoenÃ§as Criticas', 2, 1),
+                                                                 (3, 'Doenças Criticas', 2, 1),
                                                                  (3, 'Farmacologia', 3, 1);
 
 INSERT INTO employee_courses(id_employee,id_course) VALUES (1,1),(2,2),(3,3),(4,1);
@@ -171,10 +171,4 @@ INSERT INTO students(id_people, registration) VALUES (5,'1423080002'),
 
 INSERT into students_courses(id_student,id_course) values (1,1),(2,2),(3,3),(4,3);
 
-
-select people.name,courses.name, students.id_student from people, students, students_courses, courses where students.id_student = students_courses.id_student and
-										courses.id_course = students_courses.id_course and
-										people.id_people = students.id_student and
-										students_courses.id_student = 2;
-
-
+									disciplines.id_course = courses.id_course;
